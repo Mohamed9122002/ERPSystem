@@ -1,4 +1,5 @@
 using ERPSystem.BusinessLogicLayer.DataTransferObject.Profiles;
+using ERPSystem.BusinessLogicLayer.HRServices.EmployeeS;
 using ERPSystem.DataAccessLayer.Contexts;
 using ERPSystem.DataAccessLayer.Repositories.UOW;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace ERPSystem.PresentationLayer
             });
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddAutoMapper(M => M.AddProfile(new EmployeeMappingProfile()));
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             #endregion
 
             var app = builder.Build();
@@ -41,7 +43,7 @@ namespace ERPSystem.PresentationLayer
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Employee}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

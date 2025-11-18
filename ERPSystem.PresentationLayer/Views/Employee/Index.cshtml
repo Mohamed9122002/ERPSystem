@@ -1,0 +1,96 @@
+﻿
+@model IEnumerable<EmployeeDto>
+@{
+    ViewData["Title"] = "All Employees";
+}
+
+<h1 class="my-3">All Employees</h1>
+<a asp-controller="Employee" asp-action="Create" class="btn btn-primary">Create New Employee</a>
+<br />
+
+<div class="m-2">
+    <form asp-action="Index" class="row offset-2" method="get">
+        <div class="col-8">
+            <input class="form-control" type="text" name="EmployeeSearchName" placeholder="Search Employee By Name" />
+        </div>
+        <div class="col-4">
+            <input type="submit" class="btn btn-outline-success" value="Search" />
+        </div>
+    </form>
+</div>
+
+@if (Model?.Any() ?? false)
+{
+    <table class="mt-4 table table-striped table-hover">
+        <thead class="text-center">
+            <tr>
+                <th>@Html.DisplayNameFor(E => E.FullName)</th>
+                <th>@Html.DisplayNameFor(E => E.Email)</th>
+                <th>@Html.DisplayNameFor(E => E.HireDate)</th>
+                <th>@Html.DisplayNameFor(E => E.Status)</th>
+                <th>@Html.DisplayNameFor(E => E.DepartmentName)</th>
+                <th>@Html.DisplayNameFor(E => E.JobPositionName)</th>
+                <th>@Html.DisplayNameFor(E => E.ShiftName)</th>
+                <th>Details</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody class="text-center">
+            @foreach (var employee in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(E => employee.FullName)</td>
+                    <td>@(string.IsNullOrEmpty(employee.Email) ? "-" : employee.Email)</td>
+                    <td>@employee.HireDate.ToShortDateString()</td>
+                    <td>@employee.Status</td>
+                    <td>@(string.IsNullOrEmpty(employee.DepartmentName) ? "No Department" : employee.DepartmentName)</td>
+                    <td>@(string.IsNullOrEmpty(employee.JobPositionName) ? "-" : employee.JobPositionName)</td>
+                    <td>@(string.IsNullOrEmpty(employee.ShiftName) ? "-" : employee.ShiftName)</td>
+
+                    <td>
+                        <a asp-controller="Employee" asp-action="Details" asp-route-id="@employee.Id" class="btn btn-warning">
+                            <i class="fas fa-eye"></i> Details
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-success">
+                            <i class="fas fa-edit"></i> Update
+                        </a>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@employee.Id">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                        <div class="modal fade" id="DeleteModal-@employee.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Employee</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete employee <strong>@employee.FullName</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form asp-action="Delete" asp-controller="Employee" asp-route-id="@employee.Id">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <input type="submit" value="Delete" class="btn btn-danger" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="mt-4 alert alert-info">
+        <h4>There are no employees :(</h4>
+    </div>
+}
