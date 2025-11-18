@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class Interview
+    public class Interview :BaseEntity
     {
-        public int InterviewId { get; set; }
         public DateTime InterviewDate { get; set; }
-        public InterviewEnum? Result { get; set; }  // Passed, Failed, Pending
+        public InterviewType? Result { get; set; }  // Passed, Failed, Pending
         public string? Notes { get; set; }
         public int CandidateId { get; set; }
         public Candidate Candidate { get; set; } = null!;
+        public RecruitmentRequest RecruitmentRequest { get; set; } = null!;
+        // Fk 
+        public int RecruitmentRequestId { get; set; } 
     }
 }

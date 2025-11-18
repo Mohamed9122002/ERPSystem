@@ -1,3 +1,6 @@
+using ERPSystem.DataAccessLayer.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 namespace ERPSystem.PresentationLayer
 {
     public class Program
@@ -6,8 +9,15 @@ namespace ERPSystem.PresentationLayer
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            
+            #region Add Services To The Container 
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<ERPDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+            });
+            #endregion
 
             var app = builder.Build();
 

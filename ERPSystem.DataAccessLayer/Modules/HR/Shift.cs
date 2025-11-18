@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class Shift
+    public class Shift:BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; } = null!;
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-        public ICollection<Employee> Employees { get; set; } = new List<Employee>();
+        public HashSet<Employee> Employees { get; set; } = new();
     }
 }

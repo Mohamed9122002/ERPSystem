@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR.enums
 {
-    public enum InterviewEnum
+    public enum ContractType
     {
-        Passed,
-        Failed,
-        Pending
+        FullTime,
+        PartTime,
+        Temporary,
+        Internship,
+        Freelance
     }
 }

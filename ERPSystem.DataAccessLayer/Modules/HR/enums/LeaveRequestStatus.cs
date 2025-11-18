@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR.enums
 {
-    public enum LeaveRequestEnum
+    public enum LeaveRequestStatus
     {
-            Annual,
-            Sick,
-            Unpaid     
+        Pending,
+        Approved,
+        Rejected,
+        Cancelled
     }
 }

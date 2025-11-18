@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ERPSystem.DataAccessLayer.Modules.HR
+namespace ERPSystem.DataAccessLayer.Modules.HR.enums
 {
-    public class Training
+    public enum InterviewType
     {
+        Passed,
+        Failed,
+        Pending
     }
 }

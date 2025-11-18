@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class Allowance
+    public class Allowance:BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; } = null!;
         public decimal Amount { get; set; }
         public int EmployeeId { get; set; }

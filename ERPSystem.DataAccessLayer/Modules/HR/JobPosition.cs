@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class JobPosition
+    public class JobPosition :BaseEntity
     {
-        public int Id { get; set; }
         public string Title { get; set; } = null!;
         public string? Description { get; set; }
         public int DepartmentId { get; set; } // Fk 
@@ -16,5 +15,6 @@ namespace ERPSystem.DataAccessLayer.Modules.HR
         public Department Department { get; set; } = null!;
         // One To Many
         public ICollection<Employee> Employees { get; set; } = new List<Employee>();
+        public HashSet<RecruitmentRequest> RecruitmentRequests { get; set; } = new();
     }
 }

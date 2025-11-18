@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class Employee
+    public class Employee : BaseEntity
     {
-        public int Id { get; set; }
         public string FullName { get; set; } = null!;
         public string NationalID { get; set; } = null!;
         public string? Phone { get; set; }
@@ -28,13 +27,13 @@ namespace ERPSystem.DataAccessLayer.Modules.HR
         // Navigation Property 
         public Shift? Shift { get; set; }
         public Contract? Contract { get; set; }
-        public ICollection<PaySlip> Payslips { get; set; } = new List<PaySlip>();
+        public HashSet<PaySlip> Payslips { get; set; } = new();
 
-        public ICollection<Allowance> Allowances { get; set; } = new List<Allowance>();
-        public ICollection<Deduction> Deductions { get; set; } = new List<Deduction>();
-        public ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();
-        public ICollection<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
-        public ICollection<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
-        public ICollection<EmployeeTraining> EmployeeTrainings { get; set; } = new List<EmployeeTraining>();
+        public HashSet<Allowance> Allowances { get; set; } = new();
+        public HashSet<Deduction> Deductions { get; set; } = new();
+        public HashSet<Attendance> Attendances { get; set; } = new();
+        public HashSet<LeaveRequest> LeaveRequests { get; set; } = new();
+        public HashSet<PerformanceReview> PerformanceReviews { get; set; } = new();
+        public HashSet<EmployeeTraining> EmployeeTrainings { get; set; } = new();
     }
 }
