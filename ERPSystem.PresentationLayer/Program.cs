@@ -1,4 +1,6 @@
+using ERPSystem.BusinessLogicLayer.DataTransferObject.Profiles;
 using ERPSystem.DataAccessLayer.Contexts;
+using ERPSystem.DataAccessLayer.Repositories.UOW;
 using Microsoft.EntityFrameworkCore;
 
 namespace ERPSystem.PresentationLayer
@@ -17,6 +19,8 @@ namespace ERPSystem.PresentationLayer
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 
             });
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddAutoMapper(M => M.AddProfile(new EmployeeMappingProfile()));
             #endregion
 
             var app = builder.Build();
