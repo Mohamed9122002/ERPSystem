@@ -10,6 +10,6 @@ namespace ERPSystem.BusinessLogicLayer.DataTransferObject.DepartmentDtos
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public DateOnly CreateOn { get; set; }
+        public DateOnly? CreateOn { get; set; }
     }
 }

@@ -1,8 +1,11 @@
 using ERPSystem.BusinessLogicLayer.DataTransferObject.Profiles;
+using ERPSystem.BusinessLogicLayer.HRServices.DepartmentS;
 using ERPSystem.BusinessLogicLayer.HRServices.EmployeeS;
 using ERPSystem.DataAccessLayer.Contexts;
 using ERPSystem.DataAccessLayer.Repositories.UOW;
+using ERPSystem.PresentationLayer.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ERPSystem.PresentationLayer
 {
@@ -21,8 +24,14 @@ namespace ERPSystem.PresentationLayer
 
             });
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddAutoMapper(M => M.AddProfile(new EmployeeMappingProfile()));
+            builder.Services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<EmployeeMappingProfile>();
+                cfg.AddProfile<DepartmentMappingProfile>();
+                cfg.AddProfile<DepartmentMappingProfilePre>();
+            });
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<IDepartmentService,DepartmentService>();
             #endregion
 
             var app = builder.Build();

@@ -11,5 +11,6 @@ namespace ERPSystem.BusinessLogicLayer.DataTransferObject.DepartmentDtos
     {
         [Required]
         public string Name { get; set; } = string.Empty;
+        public DateOnly? DateOfCreation { get; set; }
     }
 }
