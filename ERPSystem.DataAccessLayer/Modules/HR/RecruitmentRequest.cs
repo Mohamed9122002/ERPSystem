@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class RecruitmentRequest :BaseEntity
+    public class RecruitmentRequest :BaseEntity<int>
     {
         public RecruitmentRequestStatus Status { get; set; } = RecruitmentRequestStatus.Open;
         public DateTime RequestedDate { get; set; }

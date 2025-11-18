@@ -2,7 +2,7 @@
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class PaySlipConfiguration :BaseEntityConfiguration<PaySlip>, IEntityTypeConfiguration<PaySlip>
+    public class PaySlipConfiguration :BaseEntityConfiguration<PaySlip, int>, IEntityTypeConfiguration<PaySlip>
     {
         public new  void Configure(EntityTypeBuilder<PaySlip> builder)
         {

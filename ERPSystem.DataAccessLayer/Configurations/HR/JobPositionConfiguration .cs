@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class JobPositionConfiguration:BaseEntityConfiguration<JobPosition>, IEntityTypeConfiguration<JobPosition>
+    public class JobPositionConfiguration:BaseEntityConfiguration<JobPosition, int>, IEntityTypeConfiguration<JobPosition>
     {
         public void Configure(EntityTypeBuilder<JobPosition> builder)
         {

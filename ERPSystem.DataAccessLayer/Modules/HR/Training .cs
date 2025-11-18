@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class Training :BaseEntity
+    public class Training :BaseEntity<int>
     {       
         public string Title { get; set; } = null!;       
         public string? Description { get; set; }       

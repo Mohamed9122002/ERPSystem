@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class ContractConfiguration :BaseEntityConfiguration<Contract>, IEntityTypeConfiguration<Contract>
+    public class ContractConfiguration :BaseEntityConfiguration<Contract, int>, IEntityTypeConfiguration<Contract>
     {
         public void Configure(EntityTypeBuilder<Contract> builder)
         {

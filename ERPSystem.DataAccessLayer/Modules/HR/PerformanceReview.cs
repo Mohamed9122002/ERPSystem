@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class PerformanceReview :BaseEntity
+    public class PerformanceReview :BaseEntity<int>
     {
         public DateTime ReviewDate { get; set; }
         public int Score { get; set; }

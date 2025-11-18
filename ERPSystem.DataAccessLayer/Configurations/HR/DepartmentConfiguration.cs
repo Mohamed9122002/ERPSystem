@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class DepartmentConfiguration : BaseEntityConfiguration<Department>, IEntityTypeConfiguration<Department>
+    public class DepartmentConfiguration : BaseEntityConfiguration<Department, int>, IEntityTypeConfiguration<Department>
     {
         public void Configure(EntityTypeBuilder<Department> builder)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class Candidate :BaseEntity
+    public class Candidate :BaseEntity<int>
     {
         public string FullName { get; set; } = null!;
         public string Email { get; set; } = null!;

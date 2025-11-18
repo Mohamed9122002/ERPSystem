@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Configurations
 {
-    public class BaseEntityConfiguration<T> : IEntityTypeConfiguration<T> where T : BaseEntity
+    public class BaseEntityConfiguration<T,Tkey> : IEntityTypeConfiguration<T> where T : BaseEntity<Tkey>
     {
         public void Configure(EntityTypeBuilder<T> builder)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class Attendance :BaseEntity
+    public class Attendance :BaseEntity<int>
     {
         public DateTime Date { get; set; }
         public DateTime? CheckIn { get; set; }

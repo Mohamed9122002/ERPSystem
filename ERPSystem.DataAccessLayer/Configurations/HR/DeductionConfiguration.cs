@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class DeductionConfiguration:BaseEntityConfiguration<Deduction> , IEntityTypeConfiguration<Deduction>
+    public class DeductionConfiguration:BaseEntityConfiguration<Deduction, int> , IEntityTypeConfiguration<Deduction>
     {
         public new void Configure(EntityTypeBuilder<Deduction> builder)
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class ShiftConfiguration :BaseEntityConfiguration<Shift>, IEntityTypeConfiguration<Shift>
+    public class ShiftConfiguration :BaseEntityConfiguration<Shift, int>, IEntityTypeConfiguration<Shift>
     {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Shift> builder)
         {

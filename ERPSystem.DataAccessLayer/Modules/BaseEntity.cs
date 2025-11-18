@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules
 {
-    public abstract class BaseEntity
+    public abstract class BaseEntity<TKey>
     {
-        public int Id { get; set; }
+        public TKey Id { get; set; }
 
         public int CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }

@@ -4,7 +4,7 @@ using ERPSystem.DataAccessLayer.Modules.HR.enums;
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class LeaveRequestConfiguration : BaseEntityConfiguration<LeaveRequest>, IEntityTypeConfiguration<LeaveRequest>
+    public class LeaveRequestConfiguration : BaseEntityConfiguration<LeaveRequest, int>, IEntityTypeConfiguration<LeaveRequest>
     {
         public new void Configure(EntityTypeBuilder<LeaveRequest> builder)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class Deduction :BaseEntity
+    public class Deduction :BaseEntity<int>
     {
         public string Name { get; set; } = null!;
         public decimal Amount { get; set; }

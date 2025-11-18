@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class Interview :BaseEntity
+    public class Interview :BaseEntity<int>
     {
         public DateTime InterviewDate { get; set; }
         public InterviewType? Result { get; set; }  // Passed, Failed, Pending

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class PerformanceReviewConfiguration : BaseEntityConfiguration<PerformanceReview>, IEntityTypeConfiguration<PerformanceReview>
+    public class PerformanceReviewConfiguration : BaseEntityConfiguration<PerformanceReview, int>, IEntityTypeConfiguration<PerformanceReview>
     {
         public new void Configure(EntityTypeBuilder<PerformanceReview> builder)
         {

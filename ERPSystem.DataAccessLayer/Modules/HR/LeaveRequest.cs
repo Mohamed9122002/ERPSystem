@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-   public class LeaveRequest :BaseEntity
+   public class LeaveRequest :BaseEntity<int>
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

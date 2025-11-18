@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class Department : BaseEntity
+    public class Department : BaseEntity<int>
     {
         public string Name { get; set; } = null!;
         // Fk 

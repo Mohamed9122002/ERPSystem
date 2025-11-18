@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class Contract :BaseEntity
+    public class Contract : BaseEntity<int>
     {
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
@@ -18,3 +18,4 @@ namespace ERPSystem.DataAccessLayer.Modules.HR
         public Employee Employee { get; set; } = null!;
     }
 }
+

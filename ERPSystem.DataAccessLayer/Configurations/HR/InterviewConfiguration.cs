@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class InterviewConfiguration : BaseEntityConfiguration<Interview>, IEntityTypeConfiguration<Interview>
+    public class InterviewConfiguration : BaseEntityConfiguration<Interview, int>, IEntityTypeConfiguration<Interview>
     {
         public new void Configure(EntityTypeBuilder<Interview> builder)
         {

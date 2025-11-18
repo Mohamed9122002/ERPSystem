@@ -3,7 +3,7 @@ using ERPSystem.DataAccessLayer.Modules.HR.enums;
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class AttendanceConfiguration : BaseEntityConfiguration<Attendance>, IEntityTypeConfiguration<Attendance>
+    public class AttendanceConfiguration : BaseEntityConfiguration<Attendance, int>, IEntityTypeConfiguration<Attendance>
     {
         public new void Configure(EntityTypeBuilder<Attendance> builder)
         {

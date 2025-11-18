@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class Shift:BaseEntity
+    public class Shift:BaseEntity<int>
     {
         public string Name { get; set; } = null!;
         public TimeSpan StartTime { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class RecruitmentRequestConfiguration : BaseEntityConfiguration<RecruitmentRequest>, IEntityTypeConfiguration<RecruitmentRequest>
+    public class RecruitmentRequestConfiguration : BaseEntityConfiguration<RecruitmentRequest, int>, IEntityTypeConfiguration<RecruitmentRequest>
     {
         public new void Configure(EntityTypeBuilder<RecruitmentRequest> builder)
         {

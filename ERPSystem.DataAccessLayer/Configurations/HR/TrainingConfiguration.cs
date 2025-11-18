@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class TrainingConfiguration : BaseEntityConfiguration<Training>, IEntityTypeConfiguration<Training>   
+    public class TrainingConfiguration : BaseEntityConfiguration<Training, int>, IEntityTypeConfiguration<Training>   
     {
         public  new void Configure(EntityTypeBuilder<Training> builder)
         {

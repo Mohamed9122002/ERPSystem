@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class PaySlip : BaseEntity
+    public class PaySlip : BaseEntity<int>
     {
         public int Month { get; set; }
         public int Year { get; set; }

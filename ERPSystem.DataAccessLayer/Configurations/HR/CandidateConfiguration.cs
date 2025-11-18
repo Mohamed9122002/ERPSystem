@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class CandidateConfiguration :BaseEntityConfiguration<Candidate> , IEntityTypeConfiguration<Candidate>
+    public class CandidateConfiguration :BaseEntityConfiguration<Candidate, int> , IEntityTypeConfiguration<Candidate>
     {
         public new void Configure(EntityTypeBuilder<Candidate> builder)
         {

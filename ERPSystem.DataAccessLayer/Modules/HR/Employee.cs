@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Modules.HR
 {
-    public class Employee : BaseEntity
+    public class Employee : BaseEntity<int>
     {
         public string FullName { get; set; } = null!;
         public string NationalID { get; set; } = null!;

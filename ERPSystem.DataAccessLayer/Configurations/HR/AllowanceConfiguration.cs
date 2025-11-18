@@ -2,7 +2,7 @@
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class AllowanceConfiguration : BaseEntityConfiguration<Allowance>, IEntityTypeConfiguration<Allowance>
+    public class AllowanceConfiguration : BaseEntityConfiguration<Allowance,int>, IEntityTypeConfiguration<Allowance>
     {
         public new void Configure(EntityTypeBuilder<Allowance> builder)
         {
