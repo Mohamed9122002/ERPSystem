@@ -1,0 +1,77 @@
+﻿@using ERPSystem.BusinessLogicLayer.DataTransferObject.JobPositionDtos
+@model IEnumerable<JobPositionListDto>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="my-3">All JobPosition</h1>
+<a asp-controller="JobPosition" asp-action="Create" class="btn btn-primary">Create New JobPosition</a>
+<br />
+
+
+@if (Model?.Any() ?? false)
+{
+    <table class="mt-4 table table-striped table-hover">
+        <thead class="text-center">
+            <tr>
+                <th>@Html.DisplayNameFor(j => j.Title)</th>
+                <th>@Html.DisplayNameFor(j => j.Description)</th>
+                <th>@Html.DisplayNameFor(j => j.DepartmentName)</th>
+                <th>Details</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            @foreach (var job in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(D =>job.Title)</td>
+                    <td>@Html.DisplayFor(j=>job.Description)</td>
+                    <td>@Html.DisplayFor(j => job.DepartmentName)</td>
+                    <td>
+                        <a asp-controller="JobPosition" asp-action="Details" asp-route-id="@job.Id" class="btn btn-warning">
+                            <i class="fas fa-eye"></i> Details
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-controller="JobPosition" asp-action="Updated" asp-route-id="@job.Id" class="btn btn-success">
+                            <i class="fas fa-edit"></i> Update
+                        </a>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@job.Id">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                        <div class="modal fade" id="DeleteModal-@job.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Department</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete department <strong>@job.Title</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form asp-action="Delete" asp-controller="JobPosition" asp-route-id="@job.Id">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <input type="submit" value="Delete" class="btn btn-danger" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="mt-4 alert alert-info">
+        <h4>There are no JobPosition</h4>
+    </div>
+}
+

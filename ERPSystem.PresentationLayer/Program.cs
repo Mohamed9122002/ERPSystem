@@ -1,6 +1,7 @@
 using ERPSystem.BusinessLogicLayer.DataTransferObject.Profiles;
 using ERPSystem.BusinessLogicLayer.HRServices.DepartmentS;
 using ERPSystem.BusinessLogicLayer.HRServices.EmployeeS;
+using ERPSystem.BusinessLogicLayer.HRServices.JobPositionS;
 using ERPSystem.DataAccessLayer.Contexts;
 using ERPSystem.DataAccessLayer.Repositories.UOW;
 using ERPSystem.PresentationLayer.ViewModels;
@@ -29,9 +30,12 @@ namespace ERPSystem.PresentationLayer
                 cfg.AddProfile<EmployeeMappingProfile>();
                 cfg.AddProfile<DepartmentMappingProfile>();
                 cfg.AddProfile<DepartmentMappingProfilePre>();
+                cfg.AddProfile<JobPositionMappingProfile>();
+                cfg.AddProfile<JobPositionMappingProfilePre>();
             });
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             builder.Services.AddScoped<IDepartmentService,DepartmentService>();
+            builder.Services.AddScoped<IJobPositionServices, JobPositionServices>();
             #endregion
 
             var app = builder.Build();

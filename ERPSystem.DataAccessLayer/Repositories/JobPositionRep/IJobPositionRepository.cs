@@ -1,0 +1,13 @@
+﻿using ERPSystem.DataAccessLayer.Repositories.RepositorieyGeneric;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ERPSystem.DataAccessLayer.Repositories.JobPositionRep
+{
+    public interface IJobPositionRepository : IGenericRepository<JobPosition, int>
+    {
+    }
+}
