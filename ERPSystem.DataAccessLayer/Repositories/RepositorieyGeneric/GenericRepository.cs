@@ -1,5 +1,6 @@
 ﻿using ERPSystem.DataAccessLayer.Contexts;
 using ERPSystem.DataAccessLayer.Modules;
+using ERPSystem.DataAccessLayer.Specifications;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -50,5 +51,18 @@ namespace ERPSystem.DataAccessLayer.Repositories.RepositorieyGeneric
                                     .Where(predicate)
                                     .ToListAsync();
         }
+
+        #region With Specification
+        public async Task<IEnumerable<TEntity>> GetAllAsync(ISpecification<TEntity, Tkey> specifications)
+        {
+            return await SpecificationsEvaluator.CreateQuery(_dbContext.Set<TEntity>(), specifications).ToListAsync();
+        }
+
+        public async Task<TEntity?> GetByIdAsync(ISpecification<TEntity, Tkey> specifications)
+        {
+            return await SpecificationsEvaluator.CreateQuery(_dbContext.Set<TEntity>(), specifications).FirstOrDefaultAsync();
+
+        }
+        #endregion
     }
 }

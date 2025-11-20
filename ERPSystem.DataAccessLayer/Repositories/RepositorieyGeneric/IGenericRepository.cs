@@ -1,4 +1,5 @@
 ﻿using ERPSystem.DataAccessLayer.Modules;
+using ERPSystem.DataAccessLayer.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,10 @@ namespace ERPSystem.DataAccessLayer.Repositories.RepositorieyGeneric
 
         void Remove(TEntity entity);
         void Update(TEntity entity);
+
+        #region With Specification 
+        Task<IEnumerable<TEntity>> GetAllAsync(ISpecification<TEntity, Tkey> specifications);
+        Task<TEntity?> GetByIdAsync(ISpecification<TEntity, Tkey> specifications);
+        #endregion
     }
 }
