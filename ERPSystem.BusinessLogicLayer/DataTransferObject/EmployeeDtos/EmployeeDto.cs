@@ -18,7 +18,9 @@ namespace ERPSystem.BusinessLogicLayer.DataTransferObject.EmployeeDtos
         public int DepartmentId { get; set; }
         public int JobPositionId { get; set; }
         public int? ShiftId { get; set; }
-
+        public string Gender { get; set; }
+        public string EmployeeType { get; set; }
+        public string ?Address { get; set; }
         public string DepartmentName { get; set; } = null!;
         public string JobPositionName { get; set; } = null!;
         public string? ShiftName { get; set; }

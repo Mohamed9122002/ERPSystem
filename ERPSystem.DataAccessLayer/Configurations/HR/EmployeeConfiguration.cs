@@ -1,4 +1,5 @@
 ﻿using ERPSystem.DataAccessLayer.Modules.HR;
+using ERPSystem.DataAccessLayer.Modules.HR.enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -26,7 +27,15 @@ namespace ERPSystem.DataAccessLayer.Configurations.HR
             builder.Property(e => e.Status)
            .HasMaxLength(20)
            .HasDefaultValue("Active");
+            builder.Property(E => E.Salary).HasColumnType("decimal(10,2)");
+            builder.Property(E => E.Gender)
+         .HasConversion((EmpGender) => EmpGender.ToString(),
+         (_gender) => (Gender)Enum.Parse(typeof(Gender), _gender));
+            builder.Property(E => E.EmployeeType)
+           .HasConversion((EmpType) => EmpType.ToString(),
+       (_Type) => (ContractType)Enum.Parse(typeof(ContractType), _Type));
             builder.Property(e => e.HireDate).IsRequired();
+            builder.Property(E => E.Address).HasColumnType("varchar(150)");
 
             // Relationships
             builder.HasOne(e => e.Department)

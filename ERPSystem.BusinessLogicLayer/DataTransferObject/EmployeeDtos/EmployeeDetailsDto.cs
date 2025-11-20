@@ -18,8 +18,15 @@ namespace ERPSystem.BusinessLogicLayer.DataTransferObject.EmployeeDtos
         public string DepartmentName { get; set; } = null!;
         public string JobPositionName { get; set; } = null!;
         public string? ShiftName { get; set; }
-        public string? ContractType { get; set; }
+        public string? Address { get; set; }
+        public int? Age { get; set; }
+
+        public decimal Salary { get; set; }
+
         public DateTime? ContractStartDate { get; set; }
         public DateTime? ContractEndDate { get; set; }
+        public string Gender { get; set; }
+
+        public string EmployeeType { get; set; }
     }
 }

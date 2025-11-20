@@ -6,6 +6,7 @@ using ERPSystem.DataAccessLayer.Contexts;
 using ERPSystem.DataAccessLayer.Repositories.UOW;
 using ERPSystem.PresentationLayer.ViewModels;
 using ERPSystem.PresentationLayer.ViewModels.Profiles;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,9 +18,12 @@ namespace ERPSystem.PresentationLayer
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            
+
             #region Add Services To The Container 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
             builder.Services.AddDbContext<ERPDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

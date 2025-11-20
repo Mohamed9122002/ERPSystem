@@ -28,7 +28,25 @@ namespace ERPSystem.PresentationLayer.Controllers.HR
             {
                 try
                 {
-                   var employeeDto = mapper.Map<CreatedEmployeeDto>(model);
+                    var employeeDto = new CreatedEmployeeDto()
+                    {
+
+                        FullName = model.FullName,
+                        NationalID = model.NationalID,
+                        Status = model.Status,
+                        Email = model.Email,
+                        Address = model.Address,
+                        Age = model.Age,
+                        Salary = model.Salary,
+                        Phone = model.Phone,
+                        EmployeeType = model.EmployeeType,
+                        Gender = model.Gender,
+                        HireDate = model.HireDate,
+                        DepartmentId = model.DepartmentId,
+                        JobPositionId = model.JobPositionId,
+                        ShiftId = model.ShiftId
+
+                    };
                     int result = await _employeeService.CreateEmployeeAsync(employeeDto);
                     if (result > 0)
                     {

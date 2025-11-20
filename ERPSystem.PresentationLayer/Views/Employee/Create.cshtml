@@ -1,4 +1,5 @@
 ﻿@using ERPSystem.BusinessLogicLayer.HRServices.JobPositionS
+@using ERPSystem.DataAccessLayer.Modules.HR.enums
 
 @model EmployeeViewModel
 @inject IJobPositionServices _jobPositionServices
@@ -13,47 +14,9 @@
 }
 
 <h1>Create Employee</h1>
-
-<form asp-action="Create" method="post">
-    <div class="mb-3">
-        <label asp-for="FullName" class="form-label"></label>
-        <input asp-for="FullName" class="form-control" />
-        <span asp-validation-for="FullName" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="NationalID" class="form-label"></label>
-        <input asp-for="NationalID" class="form-control" />
-        <span asp-validation-for="NationalID" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Phone" class="form-label"></label>
-        <input asp-for="Phone" class="form-control" />
-        <span asp-validation-for="Phone" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Email" class="form-label"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="HireDate" class="form-label"></label>
-        <input asp-for="HireDate" class="form-control" type="date" />
-        <span asp-validation-for="HireDate" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Status" class="form-label"></label>
-        <select asp-for="Status" class="form-select">
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
-        </select>
-        <span asp-validation-for="Status" class="text-danger"></span>
-    </div>
-    <partial name="_EmployeeDropdowns" />
+<form asp-controller="Employee" asp-action="Create" method="post" class="row col-6">
+    <div asp-validation-summary="ModelOnly"></div>
+    <partial name="PartialView/_CreateEditEmployeePartialView" />
     <div class="mb-3">
         <label asp-for="ShiftId" class="form-label"></label>
         <select asp-for="ShiftId" asp-items="ViewBag.Shifts" class="form-select">
@@ -62,8 +25,10 @@
         <span asp-validation-for="ShiftId" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Create</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+	<div class="mt-4">
+			<input type="submit" value="Create" class="btn btn-primary" /> |
+			<a asp-controller="Employee" asp-action="Index" class="btn btn-light">Back To List</a>
+		</div>
 </form>
 
 

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ERPSystem.DataAccessLayer.Modules.HR.enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,9 +14,13 @@ namespace ERPSystem.DataAccessLayer.Modules.HR
         public string NationalID { get; set; } = null!;
         public string? Phone { get; set; }
         public string? Email { get; set; }
-        //public decimal Salary { get; set; } 
+        public decimal Salary { get; set; }
+        public Gender Gender { get; set; }
+        public int Age { get; set; }
+        public ContractType EmployeeType { get; set; }
         public DateTime HireDate { get; set; }
         public string Status { get; set; } = "Active";
+        public string? Address { get; set; }
         // Fk
         public int DepartmentId { get; set; }
         // Navigation Property = > Many-to-One

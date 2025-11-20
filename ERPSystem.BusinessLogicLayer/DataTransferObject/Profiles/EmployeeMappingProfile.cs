@@ -25,7 +25,7 @@ namespace ERPSystem.BusinessLogicLayer.DataTransferObject.Profiles
                        opt => opt.MapFrom(src => src.JobPosition.Title))
             .ForMember(dest => dest.ShiftName,
                        opt => opt.MapFrom(src => src.Shift != null ? src.Shift.Name : null))
-            .ForMember(dest => dest.ContractType,
+            .ForMember(dest => dest.EmployeeType,
                        opt => opt.MapFrom(src => src.Contract.ContractType ))
             .ForMember(dest => dest.ContractStartDate,
                        opt => opt.MapFrom(src =>  src.Contract.StartDate ))

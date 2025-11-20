@@ -11,7 +11,7 @@ namespace ERPSystem.DataAccessLayer.Specifications
     public abstract class BaseSpecification<TEntity, TKey> : ISpecification<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
         public Expression<Func<TEntity, bool>>? WhereExpressions { get; private set; }
-        public List<Expression<Func<TEntity, object>>> IncludeExpressions { get; } = [];
+        public List<Expression<Func<TEntity, object>>> IncludeExpressions { get; } = new List<Expression<Func<TEntity, object>>>();
         protected BaseSpecification(Expression<Func<TEntity, bool>>? whereExpression)
         {
             WhereExpressions = whereExpression;
