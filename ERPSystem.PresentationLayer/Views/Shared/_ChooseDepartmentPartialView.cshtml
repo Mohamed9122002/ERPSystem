@@ -1,0 +1,20 @@
+﻿@using ERPSystem.BusinessLogicLayer.HRServices.DepartmentS
+@model JobPositionViewModel
+@inject IDepartmentService _departmentService
+
+@{
+	var Departments = (await _departmentService.GetAllDepartmentsAsync())
+					  .Select(d => new SelectListItem
+					  {
+						  Value = d.Id.ToString(),
+						  Text = d.Name
+					  }).ToList();
+}
+
+<div class="form-group col-12">
+	<label asp-for="DepartmentId" class="control-label">DepartmentName</label>
+	<select asp-for="DepartmentId" class="form-control" asp-items="Departments">
+		<option value="">Choose Department</option>
+	</select>
+	<span asp-validation-for="DepartmentId" class="text-danger"></span>
+</div>

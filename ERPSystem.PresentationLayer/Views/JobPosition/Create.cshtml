@@ -1,9 +1,8 @@
 ﻿@using ERPSystem.BusinessLogicLayer.HRServices.DepartmentS
-@inject IDepartmentService _departmentService
+
 @model JobPositionViewModel
 @{
     ViewData["Title"] = "Create";
-	var Departments = new SelectList(await _departmentService.GetAllDepartmentsAsync(), "Id", "Name");
 }
 
 <div class="row justify-content-center align-items-center flex-column">
@@ -22,15 +21,7 @@
 			<input asp-for="Description" class="form-control" />
 			<span asp-validation-for="Description" class="text-danger"></span>
 		</div>
-		<div class="form-group col-12">
-			<label asp-for="DepartmentId" class="control-label"></label>
-			<select asp-for="DepartmentId" asp-items="Departments" class="form-control">
-				<option value="@null">
-					Choose JobPosition
-				</option>
-			</select>
-			<span asp-validation-for="DepartmentId" class="text-danger"></span>
-		</div>
+		<partial name="_ChooseDepartmentPartialView"  />
 		<div class="mt-4">
 			<input type="submit" value="Create" class="btn btn-primary" /> |
 			<a asp-controller="JobPosition" asp-action="Index" class="btn btn-light">Back To List</a>
@@ -39,3 +30,6 @@
 
 	</form>
 	</div>
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

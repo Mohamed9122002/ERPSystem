@@ -3,11 +3,7 @@ using ERPSystem.BusinessLogicLayer.DataTransferObject.EmployeeDtos;
 using ERPSystem.DataAccessLayer.Modules.HR;
 using ERPSystem.DataAccessLayer.Repositories.RepositorieyGeneric;
 using ERPSystem.DataAccessLayer.Repositories.UOW;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ERPSystem.BusinessLogicLayer.HRServices.EmployeeS
 {
@@ -18,9 +14,13 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.EmployeeS
         {
             IEnumerable<Employee> employees;
             if (string.IsNullOrWhiteSpace(employeeSearchName))
+            {
                 employees = await repo.GetAllAsync(false);
+            }
             else
+            {
                 employees = await repo.GetAllAsync(E => E.FullName.ToLower().Contains(employeeSearchName.ToLower()));
+            }
             var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
             return employeesDto;
         }

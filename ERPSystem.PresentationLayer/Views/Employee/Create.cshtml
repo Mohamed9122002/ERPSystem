@@ -1,7 +1,15 @@
-﻿
+﻿@using ERPSystem.BusinessLogicLayer.HRServices.JobPositionS
+
 @model EmployeeViewModel
+@inject IJobPositionServices _jobPositionServices
 @{
     ViewData["Title"] = "Create";
+    var jobPositions = (await _jobPositionServices.GetAllJobPositionsAsync())
+                        .Select(jp => new SelectListItem
+                        {
+                            Value = jp.Id.ToString(),
+                            Text = jp.Title,
+						}).ToList();
 }
 
 <h1>Create Employee</h1>
@@ -46,18 +54,12 @@
         <span asp-validation-for="Status" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="DepartmentId" class="form-label"></label>
-        <select asp-for="DepartmentId" asp-items="ViewBag.Departments" class="form-select">
-            <option value="">-- Select Department --</option>
-        </select>
-        <span asp-validation-for="DepartmentId" class="text-danger"></span>
-    </div>
+    <partial name="_ChooseDepartmentPartialView" />
 
     <div class="mb-3">
         <label asp-for="JobPositionId" class="form-label"></label>
-        <select asp-for="JobPositionId" asp-items="ViewBag.JobPositions" class="form-select">
-            <option value="">-- Select Job Position --</option>
+        <select asp-for="JobPositionId" asp-items="jobPositions" class="form-select">
+            <option value="">Select Job Position</option>
         </select>
         <span asp-validation-for="JobPositionId" class="text-danger"></span>
     </div>
