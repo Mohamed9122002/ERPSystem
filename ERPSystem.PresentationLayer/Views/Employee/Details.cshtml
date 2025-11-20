@@ -1,0 +1,80 @@
+﻿@model EmployeeDetailsDto
+@{
+    ViewData["Title"] = "Details";
+}
+<h1 class="my-5 w-75">Employee Details</h1>
+
+
+<ul class="nav nav-tabs" id="EmployeeTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="general-tab" data-bs-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">General</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="administration-tab" data-bs-toggle="tab" href="#administration" role="tab" aria-controls="administration" aria-selected="false">Administration</a>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    <!-- General Tab Content -->
+    <div class="tab-pane fade show active p-4 border" id="general" role="tabpanel" aria-labelledby="general-tab">
+
+        <div class="row">
+
+            <div class="form-group col-6">
+                <label class="col-form-label" asp-for="FullName"></label>
+                <input asp-for="FullName" class="form-control" readonly />
+            </div>
+            <div class="form-group col-6">
+                <label class="col-form-label" asp-for="NationalID"></label>
+                <input asp-for="NationalID" class="form-control" readonly />
+            </div>
+            <div class="form-group col-6">
+                <label class="col-form-label" asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" readonly />
+            </div>
+            <div class="form-group col-6">
+                <label class="col-form-label" asp-for="Phone"></label>
+                <input asp-for="Phone" class="form-control" readonly />
+            </div>
+            <div class="form-group col-6">
+                <label class="col-form-label" asp-for="HireDate"></label>
+                <input asp-for="HireDate" class="form-control" readonly />
+            </div>
+            <div class="form-group col-6">
+                <label class="col-form-label" asp-for="Status"></label>
+                <input asp-for="Status" class="form-control" readonly />
+            </div>
+            <div class="form-group col-6">
+                <label class="col-form-label" asp-for="DepartmentName"></label>
+                <input asp-for="DepartmentName" class="form-control" readonly />
+            </div>
+                        <div class="form-group col-6">
+                <label class="col-form-label" asp-for="JobPositionName"></label>
+                <input asp-for="JobPositionName" class="form-control" readonly />
+            </div>
+            <div class="form-group col-6">
+                <label class="col-form-label" asp-for="ShiftName"></label>
+                <input asp-for="ShiftName" class="form-control" readonly />
+            </div>
+            <div class="form-group col-6">
+                <label class="col-form-label" asp-for="ContractStartDate"></label>
+                <input asp-for="ContractStartDate" class="form-control" readonly />
+            </div>
+            <div class="form-group col-6">
+                <label class="col-form-label" asp-for="ContractEndDate"></label>
+                <input asp-for="ContractEndDate" class="form-control" readonly />
+            </div>
+            <div class="form-group col-6">
+                <label class="col-form-label" asp-for="ContractType"></label>
+                <input asp-for="ContractType" class="form-control" readonly />
+            </div>
+        </div>
+    </div>
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
+        <a asp-action="Index" class="btn btn-outline-dark">Back To list</a>
+    </div>
+</div>
+
+
+

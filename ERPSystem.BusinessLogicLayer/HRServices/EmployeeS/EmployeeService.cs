@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ERPSystem.BusinessLogicLayer.DataTransferObject.EmployeeDtos;
+using ERPSystem.BusinessLogicLayer.Specifications;
 using ERPSystem.DataAccessLayer.Modules.HR;
 using ERPSystem.DataAccessLayer.Repositories.RepositorieyGeneric;
 using ERPSystem.DataAccessLayer.Repositories.UOW;
@@ -10,16 +11,19 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.EmployeeS
     public class EmployeeService(IUnitOfWork _unitOfWork, IMapper _mapper) : IEmployeeService
     {
         IGenericRepository<Employee, int> repo = _unitOfWork.CreateGenericRepository<Employee, int>();
+        EmployeeTypeSpecifications specifications;
         public async Task<IEnumerable<EmployeeDto>> GetAllEmployeesAsync(string? employeeSearchName)
         {
             IEnumerable<Employee> employees;
+            specifications = new EmployeeTypeSpecifications(employeeSearchName);
             if (string.IsNullOrWhiteSpace(employeeSearchName))
             {
-                employees = await repo.GetAllAsync(false);
+                employees = await repo.GetAllAsync(specifications);
             }
             else
             {
-                employees = await repo.GetAllAsync(E => E.FullName.ToLower().Contains(employeeSearchName.ToLower()));
+                employees = await repo.GetAllAsync(specifications);
+
             }
             var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
             return employeesDto;
@@ -36,7 +40,9 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.EmployeeS
 
         public async Task<EmployeeDetailsDto?> GetEmployeeByIdAsync(int id)
         {
-            var employee = await repo.GetByIdAsync(id);
+
+            var spec = new EmployeeTypeSpecifications(id);
+            var employee = await repo.GetByIdAsync(specifications);
             return employee is null ? null : _mapper.Map<Employee, EmployeeDetailsDto>(employee);
         }
 
@@ -56,7 +62,7 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.EmployeeS
                 employee.IsDeleted = true;
                 // Delete Employee From Database
 
-                repo.Update(employee);
+                repo.Remove(employee);
 
                 return await _unitOfWork.SaveChangeAsync() > 0 ? true : false;
             }

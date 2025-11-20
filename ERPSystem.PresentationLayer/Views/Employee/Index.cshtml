@@ -25,6 +25,7 @@
         <thead class="text-center">
             <tr>
                 <th>@Html.DisplayNameFor(E => E.FullName)</th>
+                <th>@Html.DisplayNameFor(E => E.NationalID)</th>
                 <th>@Html.DisplayNameFor(E => E.Email)</th>
                 <th>@Html.DisplayNameFor(E => E.HireDate)</th>
                 <th>@Html.DisplayNameFor(E => E.Status)</th>
@@ -42,6 +43,7 @@
             {
                 <tr>
                     <td>@Html.DisplayFor(E => employee.FullName)</td>
+                    <td>@Html.DisplayFor(E => employee.NationalID)</td>
                     <td>@(string.IsNullOrEmpty(employee.Email) ? "-" : employee.Email)</td>
                     <td>@employee.HireDate.ToShortDateString()</td>
                     <td>@employee.Status</td>
@@ -55,7 +57,7 @@
                         </a>
                     </td>
                     <td>
-                        <a asp-controller="Employee" asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-success">
+                        <a asp-controller="Employee" asp-action="Updated" asp-route-id="@employee.Id" class="btn btn-success">
                             <i class="fas fa-edit"></i> Update
                         </a>
                     </td>

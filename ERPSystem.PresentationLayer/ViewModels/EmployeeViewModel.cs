@@ -7,6 +7,7 @@ namespace ERPSystem.PresentationLayer.ViewModels
     {
         [Required]
         [Display(Name = "Full Name")]
+        public int Id { get; set; }
         public string FullName { get; set; } = null!;
 
         [Required]

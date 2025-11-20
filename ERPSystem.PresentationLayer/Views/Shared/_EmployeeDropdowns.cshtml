@@ -1,0 +1,37 @@
+﻿@using ERPSystem.BusinessLogicLayer.HRServices.DepartmentS
+@using ERPSystem.BusinessLogicLayer.HRServices.JobPositionS
+@model EmployeeViewModel
+@inject IDepartmentService _departmentService
+@inject IJobPositionServices _jobPositionServices
+
+@{
+    var jobPositions = (await _jobPositionServices.GetAllJobPositionsAsync())
+                        .Select(jp => new SelectListItem
+                        {
+                            Value = jp.Id.ToString(),
+                            Text = jp.Title
+                        }).ToList();
+
+    var Departments = (await _departmentService.GetAllDepartmentsAsync())
+                      .Select(d => new SelectListItem
+                      {
+                          Value = d.Id.ToString(),
+                          Text = d.Name
+                      }).ToList();
+}
+
+<div class="form-group col-12 mb-3">
+    <label asp-for="DepartmentId" class="control-label">DepartmentName</label>
+    <select asp-for="DepartmentId" class="form-control" asp-items="Departments">
+        <option value="">Choose Department</option>
+    </select>
+    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+</div>
+
+<div class="form-group mb-3">
+    <label asp-for="JobPositionId" class="form-label"></label>
+    <select asp-for="JobPositionId" asp-items="jobPositions" class="form-select">
+        <option value="">Select Job Position</option>
+    </select>
+    <span asp-validation-for="JobPositionId" class="text-danger"></span>
+</div>

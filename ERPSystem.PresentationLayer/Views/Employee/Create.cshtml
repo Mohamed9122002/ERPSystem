@@ -53,17 +53,7 @@
         </select>
         <span asp-validation-for="Status" class="text-danger"></span>
     </div>
-
-    <partial name="_ChooseDepartmentPartialView" />
-
-    <div class="mb-3">
-        <label asp-for="JobPositionId" class="form-label"></label>
-        <select asp-for="JobPositionId" asp-items="jobPositions" class="form-select">
-            <option value="">Select Job Position</option>
-        </select>
-        <span asp-validation-for="JobPositionId" class="text-danger"></span>
-    </div>
-
+    <partial name="_EmployeeDropdowns" />
     <div class="mb-3">
         <label asp-for="ShiftId" class="form-label"></label>
         <select asp-for="ShiftId" asp-items="ViewBag.Shifts" class="form-select">

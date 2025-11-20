@@ -5,6 +5,7 @@ using ERPSystem.BusinessLogicLayer.HRServices.JobPositionS;
 using ERPSystem.DataAccessLayer.Contexts;
 using ERPSystem.DataAccessLayer.Repositories.UOW;
 using ERPSystem.PresentationLayer.ViewModels;
+using ERPSystem.PresentationLayer.ViewModels.Profiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -32,6 +33,7 @@ namespace ERPSystem.PresentationLayer
                 cfg.AddProfile<DepartmentMappingProfilePre>();
                 cfg.AddProfile<JobPositionMappingProfile>();
                 cfg.AddProfile<JobPositionMappingProfilePre>();
+                cfg.AddProfile<EmloyeeMappingProfilePre>();
             });
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             builder.Services.AddScoped<IDepartmentService,DepartmentService>();

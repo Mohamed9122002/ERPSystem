@@ -12,6 +12,7 @@ namespace ERPSystem.DataAccessLayer.Modules.HR
         public string NationalID { get; set; } = null!;
         public string? Phone { get; set; }
         public string? Email { get; set; }
+        //public decimal Salary { get; set; } 
         public DateTime HireDate { get; set; }
         public string Status { get; set; } = "Active";
         // Fk
