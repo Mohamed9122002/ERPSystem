@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.BusinessLogicLayer.DataTransferObject.Profiles
 {
-    public class TrainingProfile : Profile
+    public class TrainingMappingProfile : Profile
     {
-        public TrainingProfile()
+        public TrainingMappingProfile()
         {
             CreateMap<Training, TrainingListDto>();
             CreateMap<CreateTrainingDto, Training>();

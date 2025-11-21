@@ -1,0 +1,78 @@
+﻿@model IEnumerable<TrainingListDto>
+@{
+	ViewData["Title"] = "Index";
+}
+<h1 class="my-3">All Training</h1>
+<a asp-controller="Training" asp-action="Create" class="btn btn-primary">Create New Training</a>
+<br />
+
+<div class="m-2">
+	<form asp-action="Index" class="row offset-2" method="get">
+		<div class="col-8">
+			<input class="form-control" type="text" name="SearchTraing" placeholder="Search Training By Title" />
+		</div>
+		<div class="col-4">
+			<input type="submit" class="btn btn-outline-success" value="Search" />
+		</div>
+	</form>
+</div>
+
+@if (Model?.Any() ?? false)
+{
+	<table class="mt-4 table table-striped table-hover">
+		<thead class="text-center">
+			<tr>
+				<th>@Html.DisplayNameFor(T => T.Title)</th>
+				<th>@Html.DisplayNameFor(T => T.StartDate)</th>
+				<th>@Html.DisplayNameFor(T => T.EndDate)</th>
+				<th>Update</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody class="text-center">
+			@foreach (var training in Model)
+			{
+				<tr>
+					<td>@Html.DisplayFor(T => training.Title)</td>
+					<td>@Html.DisplayFor(T => training.StartDate)</td>
+					<td>@Html.DisplayFor(T => training.EndDate)</td>
+					<td>
+						<a asp-controller="Training" asp-action="Updated" asp-route-id="@training.Id" class="btn btn-success">
+							<i class="fas fa-edit"></i> Update
+						</a>
+					</td>
+					<td>
+						<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@training.Id">
+							<i class="fas fa-trash"></i> Delete
+						</button>
+						<div class="modal fade" id="DeleteModal-@training.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title fs-5" id="exampleModalLabel">Delete Employee</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										Are you sure you want to delete employee <strong>@training.Title</strong>?
+									</div>
+									<div class="modal-footer">
+										<form asp-action="Delete" asp-controller="Training" asp-route-id="@training.Id">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+											<input type="submit" value="Delete" class="btn btn-danger" />
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+else
+{
+	<div class="mt-4 alert alert-info">
+		<h4>There are no Training </h4>
+	</div>
+}
