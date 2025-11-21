@@ -13,5 +13,7 @@ namespace ERPSystem.DataAccessLayer.Specifications
         // Property Signature For Each Dynamic Part in Query  
         public Expression<Func<TEntity, bool>>? WhereExpressions { get; }
         public List<Expression<Func<TEntity, object>>> IncludeExpressions { get; }
+         public List<Func<IQueryable<TEntity>, IQueryable<TEntity>>> IncludePaths { get; }
+
     }
 }

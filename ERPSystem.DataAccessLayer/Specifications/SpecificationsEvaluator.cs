@@ -9,14 +9,11 @@ namespace ERPSystem.DataAccessLayer.Specifications
 {
     public static class SpecificationsEvaluator
     {
-        public static IQueryable<TEntity> CreateQuery<TEntity, TKey>(
-    IQueryable<TEntity> entities,
-    ISpecification<TEntity, TKey>? specification)
-    where TEntity : BaseEntity<TKey>
+        public static IQueryable<TEntity> CreateQuery<TEntity, TKey>(IQueryable<TEntity> entities,ISpecification<TEntity, TKey>? specification)where TEntity : BaseEntity<TKey>
         {
             if (entities == null) throw new ArgumentNullException(nameof(entities));
 
-            if (specification == null) return entities; // لا فلترة ولا Includes
+            if (specification == null) return entities;
 
             IQueryable<TEntity> query = entities;
 
@@ -28,6 +25,13 @@ namespace ERPSystem.DataAccessLayer.Specifications
                 foreach (var include in specification.IncludeExpressions)
                 {
                     query = query.Include(include);
+                }
+            }
+            if (specification.IncludePaths?.Count > 0)
+            {
+                foreach (var includePath in specification.IncludePaths)
+                {
+                    query = includePath(query);
                 }
             }
 

@@ -12,6 +12,9 @@ namespace ERPSystem.DataAccessLayer.Specifications
     {
         public Expression<Func<TEntity, bool>>? WhereExpressions { get; private set; }
         public List<Expression<Func<TEntity, object>>> IncludeExpressions { get; } = new List<Expression<Func<TEntity, object>>>();
+
+        public List<Func<IQueryable<TEntity>, IQueryable<TEntity>>> IncludePaths { get; } = new();
+
         protected BaseSpecification(Expression<Func<TEntity, bool>>? whereExpression)
         {
             WhereExpressions = whereExpression;
@@ -20,5 +23,10 @@ namespace ERPSystem.DataAccessLayer.Specifications
         {
             IncludeExpressions.Add(includeExpression);
         }
+        protected void AddInclude(Func<IQueryable<TEntity>, IQueryable<TEntity>> includeExpression)
+        {
+            IncludePaths.Add(includeExpression);
+        }
+
     }
 }
