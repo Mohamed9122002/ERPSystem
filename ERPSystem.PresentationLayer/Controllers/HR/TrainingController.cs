@@ -54,6 +54,13 @@ namespace ERPSystem.PresentationLayer.Controllers.HR
 
         }
 
+        public async Task<IActionResult> Details(int? Id)
+        {
+            if (!Id.HasValue) return BadRequest();
+            var training = await trainingService.GetByIdAsync(Id.Value);
+            var trainingUpdated = mapper.Map<TrainingViewModel>(training);
+            return View(trainingUpdated);
+        }
         public async Task<IActionResult> Updated(int? Id)
         {
             if (!Id.HasValue) return BadRequest();
@@ -139,7 +146,7 @@ namespace ERPSystem.PresentationLayer.Controllers.HR
         public async Task<IActionResult> AssignEmployeeTraining(AssignEmployeeToTrainingDto dto)
         {
             if (!ModelState.IsValid)
-                return RedirectToAction("AssignEmployees", new { id = dto.TrainingId });
+                return RedirectToAction("AssignEmployeeTraining", new { id = dto.TrainingId });
 
             var success = await trainingService.AssignEmployeesAsync(dto);
             if (!success) return NotFound();
