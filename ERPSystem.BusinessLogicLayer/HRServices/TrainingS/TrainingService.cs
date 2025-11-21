@@ -65,20 +65,24 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.TrainingS
             var training = await trainingRepository.GetByIdAsync(new TrainingTypeSpecifications(trainingDto.TrainingId));
             if (training == null) return false;
 
-            // Remove existing employees
-            training.EmployeeTrainings.Clear();
+            var toRemove = training.EmployeeTrainings
+                .Where(et => !trainingDto.EmployeeIds.Contains(et.EmployeeId))
+                .ToList();
+            foreach (var item in toRemove)
+                training.EmployeeTrainings.Remove(item);
 
-            // Assign new employees
             foreach (var empId in trainingDto.EmployeeIds)
             {
-                training.EmployeeTrainings.Add(new EmployeeTraining
+                if (!training.EmployeeTrainings.Any(et => et.EmployeeId == empId))
                 {
-                    EmployeeId = empId,
-                    TrainingId = training.Id
-                });
+                    training.EmployeeTrainings.Add(new EmployeeTraining
+                    {
+                        EmployeeId = empId,
+                        TrainingId = training.Id
+                    });
+                }
             }
 
-            trainingRepository.Update(training);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 

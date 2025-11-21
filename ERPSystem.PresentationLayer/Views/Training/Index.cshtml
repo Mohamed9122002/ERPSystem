@@ -27,6 +27,7 @@
 				<th>@Html.DisplayNameFor(T => T.EndDate)</th>
 				<th>Update</th>
 				<th>Delete</th>
+				<th>AssignEmployees</th>
 			</tr>
 		</thead>
 		<tbody class="text-center">
@@ -39,6 +40,11 @@
 					<td>
 						<a asp-controller="Training" asp-action="Updated" asp-route-id="@training.Id" class="btn btn-success">
 							<i class="fas fa-edit"></i> Update
+						</a>
+					</td>
+					<td>
+						<a asp-controller="Training" asp-action="AssignEmployeeTraining" asp-route-id="@training.Id" class="btn btn-success">
+							<i class="fas fa-edit"></i> AssignEmployeeTraining
 						</a>
 					</td>
 					<td>
