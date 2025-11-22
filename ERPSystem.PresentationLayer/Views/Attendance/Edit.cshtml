@@ -1,0 +1,48 @@
+﻿@using ERPSystem.PresentationLayer.ViewModels.Attendance
+@model AttendanceViewModel
+@{
+	ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<div class="container mt-4">
+	<h2>Edit Attendance @Model.EmployeeName </h2>
+	<form asp-action="Edit" method="post" class="needs-validation" novalidate>
+		<input type="hidden" asp-for="Id" />
+		<div class="mb-3">
+			<label asp-for="Date" class="form-label">Date</label>
+			<input asp-for="Date" type="date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+			<span asp-validation-for="Date" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="CheckIn" class="form-label">Check-In Time</label>
+			<input asp-for="CheckIn" type="time" class="form-control" />
+			<span asp-validation-for="CheckIn" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="CheckOut" class="form-label">Check-In Time</label>
+			<input asp-for="CheckOut" type="time" class="form-control" />
+			<span asp-validation-for="CheckOut" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Status" class="form-label"></label>
+			<select asp-for="Status" class="form-select">
+				<option value="">-- Select Shift Type --</option>
+				@foreach (var type in Enum.GetValues(typeof(AttendanceStatus)))
+				{
+					<option value="@type">@type</option>
+				}
+			</select>
+			<span asp-validation-for="Status" class="text-danger"></span>
+		</div>
+		<button type="submit" class="btn btn-primary">Edit</button>
+		<a asp-action="Index" class="btn btn-secondary">Cancel</a>
+	</form>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

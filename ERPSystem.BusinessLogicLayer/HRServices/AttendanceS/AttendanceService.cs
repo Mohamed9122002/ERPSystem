@@ -50,7 +50,8 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.AttendanceS
 
         public async Task<AttendanceDetailsDto?> GetAttendanceByIdAsync(int id)
         {
-            var attendance = await repository.GetByIdAsync(id);
+            var spec = new AttendanceWithEmployeeSpecification(id);
+            var attendance = await repository.GetByIdAsync(spec);
             if (attendance is null)
                 return null;
             var attendanceDto = mapper.Map<AttendanceDetailsDto>(attendance);

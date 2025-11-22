@@ -11,6 +11,7 @@ namespace ERPSystem.BusinessLogicLayer.DataTransferObject.AttendanceDtos
     {
         public int Id { get; set; }
         public DateTime? CheckIn { get; set; }
+        public DateTime Date { get; set; } = DateTime.Today;
         public DateTime? CheckOut { get; set; }
         public AttendanceStatus Status { get; set; }
     }

@@ -12,7 +12,6 @@ namespace ERPSystem.BusinessLogicLayer.DataTransferObject.AttendanceDtos
         public int Id { get; set; }
         public string EmployeeName { get; set; } = null!;
         public int EmployeeId { get; set; }
-
         public DateTime Date { get; set; }
         public DateTime? CheckIn { get; set; }
         public DateTime? CheckOut { get; set; }
