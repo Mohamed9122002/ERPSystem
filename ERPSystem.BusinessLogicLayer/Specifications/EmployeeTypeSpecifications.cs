@@ -10,7 +10,7 @@ namespace ERPSystem.BusinessLogicLayer.Specifications
 {
     public class EmployeeTypeSpecifications : BaseSpecification<Employee, int>
     {
-        public EmployeeTypeSpecifications(string? nationalID) : base(e => string.IsNullOrEmpty(nationalID) || e.NationalID == nationalID)
+        public  EmployeeTypeSpecifications(string? nationalID) : base(e => string.IsNullOrEmpty(nationalID) || e.NationalID == nationalID)
         {
             AddInclude(E => E.Department);
             AddInclude(E => E.JobPosition);

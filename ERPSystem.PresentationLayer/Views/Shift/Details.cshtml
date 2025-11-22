@@ -1,4 +1,4 @@
-﻿@model ShiftDto
+﻿@model ShiftViewModel
 @{
     ViewData["Title"] = "Details";
     var startDateTime = DateTime.Today.Add(Model.StartTime);
@@ -28,6 +28,23 @@
                         <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.BreakMinutes)</dt>
                         <dd class="col-sm-8">@Html.DisplayFor(m => m.BreakMinutes)</dd>
                     </dl>
+                        <h5 class="mt-4">Assign Employees</h5>
+                    <form asp-action="AssignEmployees" method="post">
+                        <input type="hidden" name="shiftId" value="@Model.Id" />
+                        <div class="mb-3">
+                            <label class="form-label">Select Employees:</label>
+                            <select class="form-select" name="employeesId" multiple size="6">
+                                @foreach (var emp in Model.AllEmployees)
+                                {
+                                    <option value="@emp.Id">@emp.FullName</option>
+                                }
+                            </select>
+                            <small class="text-muted">Hold Ctrl (or Cmd) to select multiple employees.</small>
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check me-1"></i> Assign Employees
+                        </button>
+                    </form>
                 </div>
                 <div class="card-footer text-center py-3 bg-light rounded-bottom-4">
                     <a asp-action="Index" class="btn btn-secondary">
@@ -38,3 +55,9 @@
         </div>
     </div>
 </div>
+
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-2">@TempData["ErrorMessage"]</div>
+}

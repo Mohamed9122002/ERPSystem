@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ERPSystem.BusinessLogicLayer.DataTransferObject.ShiftDtos;
+using ERPSystem.BusinessLogicLayer.Specifications;
 using ERPSystem.DataAccessLayer.Modules.HR;
 using ERPSystem.DataAccessLayer.Repositories.RepositorieyGeneric;
 using ERPSystem.DataAccessLayer.Repositories.UOW;
@@ -14,6 +15,8 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.ShiftS
     public class ShiftService(IUnitOfWork unitOfWork, IMapper mapper) : IShiftService
     {
         IGenericRepository<Shift, int> repo = unitOfWork.CreateGenericRepository<Shift, int>();
+        IGenericRepository<Employee, int> repositoryEmployee = unitOfWork.CreateGenericRepository<Employee, int>();
+
         public async Task<int> CreateShiftAsync(CreateShiftDto createShiftDto)
         {
             var shift = mapper.Map<Shift>(createShiftDto);
@@ -41,19 +44,34 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.ShiftS
 
         public async Task<IEnumerable<ShiftDto>> GetAllShiftsAsync()
         {
-            var AllShifts = await  repo.GetAllAsync();
+            var spec = new ShiftWithSpecifications();
+            var AllShifts = await  repo.GetAllAsync(spec);
             return mapper.Map<IEnumerable<ShiftDto>>(AllShifts);
         }
 
         public async Task<ShiftDto?> GetShiftByIdAsync(int id)
         {
+
           var shift = await  repo.GetByIdAsync(id);
             return mapper.Map<ShiftDto?>(shift);
         }
 
-        public Task<bool> AssignEmployeesToShiftAsync(int shiftId, List<int> employeesId)
+        public async Task<bool> AssignEmployeesToShiftAsync(int shiftId, List<int> employeesId)
         {
-            throw new NotImplementedException();
+            var spec = new ShiftWithSpecifications(shiftId);
+            var shift = await repo.GetByIdAsync(spec);
+            if (shift == null) return false;
+
+            var employees = await repositoryEmployee.GetAllAsync(e => employeesId.Contains(e.Id));
+            foreach (var emp in employees)
+            {
+                if (!shift.Employees.Any(e => e.Id == emp.Id))
+                {
+                    shift.Employees.Add(emp);
+                }
+            }
+            await unitOfWork.SaveChangeAsync();
+            return true;
         }
 
         public Task<bool> RemoveEmployeeToShiftAsync(int shiftId, int employeeId)
