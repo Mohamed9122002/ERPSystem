@@ -1,23 +1,25 @@
 ﻿using ERPSystem.DataAccessLayer.Modules.HR.enums;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ERPSystem.DataAccessLayer.Modules.HR
+namespace ERPSystem.BusinessLogicLayer.DataTransferObject.ShiftDtos
 {
-    public class Shift : BaseEntity<int>
+    public class UpdateShiftDto
     {
-        //Morning Evening Night Admin Flexible
+
+        public int Id { get; set; }
+
         public string Name { get; set; } = null!;
+
         public ShiftType ShiftType { get; set; }
+
         public TimeSpan StartTime { get; set; }
+
         public TimeSpan EndTime { get; set; }
+
         public int BreakMinutes { get; set; }
-        [NotMapped]
-        public bool IsOvernight => EndTime < StartTime;
-        public HashSet<Employee> Employees { get; set; } = new();
     }
 }

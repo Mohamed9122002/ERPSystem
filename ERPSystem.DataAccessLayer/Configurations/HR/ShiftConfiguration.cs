@@ -1,4 +1,5 @@
 ﻿using ERPSystem.DataAccessLayer.Modules.HR;
+using ERPSystem.DataAccessLayer.Modules.HR.enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,14 +9,17 @@ using System.Threading.Tasks;
 
 namespace ERPSystem.DataAccessLayer.Configurations.HR
 {
-    public class ShiftConfiguration :BaseEntityConfiguration<Shift, int>, IEntityTypeConfiguration<Shift>
+    public class ShiftConfiguration : BaseEntityConfiguration<Shift, int>, IEntityTypeConfiguration<Shift>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Shift> builder)
+        public new void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Shift> builder)
         {
             builder.ToTable("Shifts", "HR");
             builder.Property(s => s.Name).IsRequired().HasMaxLength(100);
             builder.Property(s => s.StartTime).IsRequired();
             builder.Property(s => s.EndTime).IsRequired();
+            builder.Property(s => s.BreakMinutes).IsRequired();
+            builder.Property(s => s.ShiftType).HasConversion((SType) => SType.ToString(),
+                (_SType) => (ShiftType)Enum.Parse(typeof(ShiftType), _SType));
             builder.HasMany(s => s.Employees)
                    .WithOne(e => e.Shift)
                    .HasForeignKey(e => e.ShiftId)
