@@ -1,4 +1,5 @@
 using ERPSystem.BusinessLogicLayer.DataTransferObject.Profiles;
+using ERPSystem.BusinessLogicLayer.HRServices.AttendanceS;
 using ERPSystem.BusinessLogicLayer.HRServices.DepartmentS;
 using ERPSystem.BusinessLogicLayer.HRServices.EmployeeS;
 using ERPSystem.BusinessLogicLayer.HRServices.JobPositionS;
@@ -41,6 +42,7 @@ namespace ERPSystem.PresentationLayer
             builder.Services.AddScoped<IJobPositionServices, JobPositionServices>();
             builder.Services.AddScoped<ITrainingService, TrainingService>();
             builder.Services.AddScoped<IShiftService, ShiftService>();
+            builder.Services.AddScoped<IAttendanceService ,AttendanceService>();
             #endregion
 
             var app = builder.Build();
