@@ -28,7 +28,42 @@
                         <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.BreakMinutes)</dt>
                         <dd class="col-sm-8">@Html.DisplayFor(m => m.BreakMinutes)</dd>
                     </dl>
-                        <h5 class="mt-4">Assign Employees</h5>
+
+                    <!-- ==== Assigned Employees ===== -->
+                    <h5 class="mt-4">Assigned Employees (@Model.AssignedEmployees.Count)</h5>
+
+                    @if (Model.AssignedEmployees.Any())
+                    {
+                        <table class="table table-bordered mt-3">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th style="width: 100px;">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var emp in Model.AssignedEmployees)
+                                {
+                                    <tr>
+                                        <td>@emp.FullName</td>
+                                        <td class="text-center">
+                                            <form asp-action="RemoveEmployee" method="post"
+                                                  asp-route-shiftId="@Model.Id"
+                                                  asp-route-employeeId="@emp.Id">
+                                                <button class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info mt-2">No employees assigned to this shift.</div>
+                    }
                     <form asp-action="AssignEmployees" method="post">
                         <input type="hidden" name="shiftId" value="@Model.Id" />
                         <div class="mb-3">
@@ -46,6 +81,7 @@
                         </button>
                     </form>
                 </div>
+
                 <div class="card-footer text-center py-3 bg-light rounded-bottom-4">
                     <a asp-action="Index" class="btn btn-secondary">
                         <i class="fas fa-arrow-left me-1"></i> Back

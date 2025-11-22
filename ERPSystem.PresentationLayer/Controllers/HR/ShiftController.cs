@@ -56,17 +56,7 @@ namespace ERPSystem.PresentationLayer.Controllers.HR
             }
             return View(shiftViewModel);
         }
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (!id.HasValue) return BadRequest();
-            var shift = await _shiftService.GetShiftByIdAsync(id.Value);
-            if (shift is null) return NotFound();
-            var shiftViewModel = mapper.Map<ShiftViewModel>(shift);
-            var employees = await _employeeService.GetAllEmployeesAsync(null);
-            shiftViewModel.AllEmployees = mapper.Map<List<EmployeeDto>>(employees);
 
-            return View(shiftViewModel);
-        }
         public IActionResult Edit(int? id)
         {
             if (!id.HasValue) return BadRequest();
@@ -137,6 +127,18 @@ namespace ERPSystem.PresentationLayer.Controllers.HR
                 return RedirectToAction(nameof(Delete), new { id });
             }
         }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (!id.HasValue) return BadRequest();
+            var shift = await _shiftService.GetShiftByIdAsync(id.Value);
+            if (shift is null) return NotFound();
+            var shiftViewModel = mapper.Map<ShiftViewModel>(shift);
+            var employees = await _employeeService.GetAllEmployeesAsync(null);
+            shiftViewModel.AllEmployees = mapper.Map<List<EmployeeDto>>(employees);
+
+            return View(shiftViewModel);
+        }
         [HttpPost]
         public async Task<IActionResult> AssignEmployees(int shiftId, List<int> employeesId)
         {
@@ -164,6 +166,33 @@ namespace ERPSystem.PresentationLayer.Controllers.HR
                 }
             }
                 return RedirectToAction(nameof(Details), new { id = shiftId });
+        }
+        [HttpPost]
+        public async Task<IActionResult> RemoveEmployee(int shiftId, int employeeId)
+        {
+            if (shiftId == 0) return BadRequest();
+            try
+            {
+                var result = await _shiftService.RemoveEmployeeToShiftAsync(shiftId, employeeId);
+                if (result)
+                    return RedirectToAction(nameof(Index), new { id = shiftId });
+                else
+                    TempData["ErrorMessage"] = "Failed to remove employee.";
+            }
+            catch (Exception ex)
+            {
+                if (environment.IsDevelopment())
+                {
+                    logger.LogError(ex, "An error occurred while remove employee to a shift.");
+                    TempData["ErrorMessage"] = ex.Message;
+                }
+                else
+                {
+                    logger.LogError(ex, "An error occurred while remove employee to a shift.");
+                    TempData["ErrorMessage"] = "An unexpected error occurred. Please try again later.";
+                }
+            }
+            return RedirectToAction(nameof(Details), new { id = shiftId });
         }
     }
 }

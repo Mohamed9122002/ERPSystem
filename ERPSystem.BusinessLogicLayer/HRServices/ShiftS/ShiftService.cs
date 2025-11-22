@@ -44,21 +44,21 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.ShiftS
 
         public async Task<IEnumerable<ShiftDto>> GetAllShiftsAsync()
         {
-            var spec = new ShiftWithSpecifications();
+            var spec = new ShiftWithEmployeesByIdSpecification();
             var AllShifts = await  repo.GetAllAsync(spec);
             return mapper.Map<IEnumerable<ShiftDto>>(AllShifts);
         }
 
         public async Task<ShiftDto?> GetShiftByIdAsync(int id)
         {
-
-          var shift = await  repo.GetByIdAsync(id);
+            var spec = new ShiftWithEmployeesByIdSpecification(id);
+            var shift = await  repo.GetByIdAsync(spec);
             return mapper.Map<ShiftDto?>(shift);
         }
 
         public async Task<bool> AssignEmployeesToShiftAsync(int shiftId, List<int> employeesId)
         {
-            var spec = new ShiftWithSpecifications(shiftId);
+            var spec = new ShiftWithEmployeesByIdSpecification(shiftId);
             var shift = await repo.GetByIdAsync(spec);
             if (shift == null) return false;
 
@@ -74,9 +74,18 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.ShiftS
             return true;
         }
 
-        public Task<bool> RemoveEmployeeToShiftAsync(int shiftId, int employeeId)
+        public async Task<bool> RemoveEmployeeToShiftAsync(int shiftId, int employeeId)
         {
-            throw new NotImplementedException();
+            var spec = new ShiftWithEmployeesByIdSpecification(shiftId);
+            var shift = await repo.GetByIdAsync(spec);
+            if (shift == null)
+                return false;
+            var employeeToRemove = shift.Employees.FirstOrDefault(e => e.Id == employeeId);
+            if (employeeToRemove == null)
+                return false;
+            shift.Employees.Remove(employeeToRemove);
+            await unitOfWork.SaveChangeAsync();
+            return true;
         }
 
 
