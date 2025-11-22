@@ -1,0 +1,96 @@
+﻿@model IEnumerable<ShiftDto>
+@{
+	ViewData["Title"] = "Index";
+}
+<div class="container mt-5">
+	<h2 class="mb-4">All Shifts</h2>
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h2>All Shifts</h2>
+		<a asp-action="Create" class="btn btn-success">
+			<i class="fas fa-plus me-1"></i> Create Shift
+		</a>
+	</div>
+	<table class="mt-4 table table-striped table-hover">
+		<thead class="table-success">
+			<tr>
+				<th>@Html.DisplayNameFor(model => model.First().Name)</th>
+				<th>@Html.DisplayNameFor(model => model.First().ShiftType)</th>
+				<th>@Html.DisplayNameFor(model => model.First().StartTime)</th>
+				<th>@Html.DisplayNameFor(model => model.First().EndTime)</th>
+				<th>@Html.DisplayNameFor(model => model.First().BreakMinutes)</th>
+				<th>@Html.DisplayNameFor(model => model.First().IsOvernight)</th>
+				<th>@Html.DisplayNameFor(model => model.First().EmployeesCount)</th>
+				<th>Details</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model != null && Model.Any())
+			{
+				foreach (var shift in Model)
+				{
+					<tr>
+						<td>@Html.DisplayFor(m => shift.Name)</td>
+						<td>@Html.DisplayFor(m => shift.ShiftType)</td>
+						<td>@shift.StartTime.ToString(@"hh\:mm")</td>
+						<td>@shift.EndTime.ToString(@"hh\:mm")</td>
+						<td>@Html.DisplayFor(m => shift.BreakMinutes)</td>
+						<td>
+							@if (shift.IsOvernight)
+							{
+								<span class="badge bg-danger">Yes</span>
+							}
+							else
+							{
+								<span class="badge bg-success">No</span>
+							}
+						</td>
+						<td>@Html.DisplayFor(m => shift.EmployeesCount)</td>
+						<td>
+							<a asp-action="Details" asp-route-id="@shift.Id" class="btn btn btn-warning me-1">
+								<i class="fas fa-edit"></i> Details
+							</a>
+						</td>
+						<td>
+							<a asp-action="Edit" asp-route-id="@shift.Id" class="btn  btn-primary me-1">
+								<i class="fas fa-edit"></i> Edit
+							</a>
+						</td>
+						<td>
+							<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@shift.Id">
+								<i class="fas fa-trash"></i> Delete
+							</button>
+							<div class="modal fade" id="DeleteModal-@shift.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h1 class="modal-title fs-5" id="exampleModalLabel">Delete Employee</h1>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											Are you sure you want to delete Shift <strong>@shift.Name</strong>?
+										</div>
+										<div class="modal-footer">
+											<form asp-action="Delete" asp-controller="Shift" asp-route-id="@shift.Id">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+												<input type="submit" value="Delete" class="btn btn-danger" />
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				}
+			}
+			else
+			{
+				<tr>
+					<td colspan="9" class="text-center">No shifts available.</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+

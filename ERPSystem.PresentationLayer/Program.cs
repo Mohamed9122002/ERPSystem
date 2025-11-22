@@ -2,6 +2,7 @@ using ERPSystem.BusinessLogicLayer.DataTransferObject.Profiles;
 using ERPSystem.BusinessLogicLayer.HRServices.DepartmentS;
 using ERPSystem.BusinessLogicLayer.HRServices.EmployeeS;
 using ERPSystem.BusinessLogicLayer.HRServices.JobPositionS;
+using ERPSystem.BusinessLogicLayer.HRServices.ShiftS;
 using ERPSystem.BusinessLogicLayer.HRServices.TrainingS;
 using ERPSystem.DataAccessLayer.Contexts;
 using ERPSystem.DataAccessLayer.Repositories.UOW;
@@ -31,21 +32,15 @@ namespace ERPSystem.PresentationLayer
 
             });
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddAutoMapper(cfg =>
-            {
-                cfg.AddProfile<EmployeeMappingProfile>();
-                cfg.AddProfile<DepartmentMappingProfile>();
-                cfg.AddProfile<DepartmentMappingProfilePre>();
-                cfg.AddProfile<JobPositionMappingProfile>();
-                cfg.AddProfile<JobPositionMappingProfilePre>();
-                cfg.AddProfile<EmloyeeMappingProfilePre>();
-                cfg.AddProfile<TrainingMappingProfile>();
-                cfg.AddProfile<TrainingMappingProfilePre>();
-            });
+            builder.Services.AddAutoMapper(cfg => { },
+                typeof(EmployeeMappingProfile).Assembly,
+                typeof(EmloyeeMappingProfilePre).Assembly
+                );
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-            builder.Services.AddScoped<IDepartmentService,DepartmentService>();
+            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
             builder.Services.AddScoped<IJobPositionServices, JobPositionServices>();
             builder.Services.AddScoped<ITrainingService, TrainingService>();
+            builder.Services.AddScoped<IShiftService, ShiftService>();
             #endregion
 
             var app = builder.Build();

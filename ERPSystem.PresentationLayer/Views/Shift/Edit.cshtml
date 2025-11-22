@@ -1,0 +1,27 @@
+﻿@model ShiftViewModel
+@{
+	ViewData["Title"] = "Edit";
+}
+<div class="container mt-5">
+	<h2 class="mb-4">Edit  Shift</h2>
+
+	<form asp-action="Edit" method="post">
+		<div asp-validation-summary="ModelOnly"></div>
+		<input type="hidden" asp-for="Id" />
+		<partial name="PartialViews/CreatedOrEditPartialView" />
+		<div class="mt-4">
+			<button type="submit" class="btn btn-success">
+				<i class="fas fa-check me-1"></i> Edit
+			</button>
+			<a asp-action="Index" class="btn btn-secondary ms-2">
+				<i class="fas fa-arrow-left me-1"></i> Back
+			</a>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
