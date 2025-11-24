@@ -61,13 +61,7 @@ namespace ERPSystem.DataAccessLayer.Configurations.HR
             builder.HasMany(e => e.Payslips)
                    .WithOne(p => p.Employee)
                    .HasForeignKey(p => p.EmployeeId);
-            builder.HasMany(e => e.Allowances)
-                   .WithOne(a => a.Employee)
-                   .HasForeignKey(a => a.EmployeeId);
 
-            builder.HasMany(e => e.Deductions)
-                   .WithOne(d => d.Employee)
-                   .HasForeignKey(d => d.EmployeeId);
 
             builder.HasMany(e => e.Attendances)
                    .WithOne(a => a.Employee)

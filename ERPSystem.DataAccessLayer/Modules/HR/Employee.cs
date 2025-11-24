@@ -36,8 +36,7 @@ namespace ERPSystem.DataAccessLayer.Modules.HR
         public Contract? Contract { get; set; }
         public HashSet<PaySlip> Payslips { get; set; } = new();
 
-        public HashSet<Allowance> Allowances { get; set; } = new();
-        public HashSet<Deduction> Deductions { get; set; } = new();
+        public HashSet<PayrollItem> PayrollItems { get; set; } = new();
         public HashSet<Attendance> Attendances { get; set; } = new();
         public HashSet<LeaveRequest> LeaveRequests { get; set; } = new();
         public HashSet<PerformanceReview> PerformanceReviews { get; set; } = new();

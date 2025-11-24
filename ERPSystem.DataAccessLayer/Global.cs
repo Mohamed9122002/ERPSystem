@@ -1,0 +1,1 @@
+﻿global using ERPSystem.DataAccessLayer.Repositories.RepositorieyGeneric;
