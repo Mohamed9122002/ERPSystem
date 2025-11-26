@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ERPSystem.DataAccessLayer.Modules.HR
+namespace ERPSystem.BusinessLogicLayer.DataTransferObject.PayrollItemTypeDtos
 {
-    public class PayrollItemType : BaseEntity<int>
+    public class CreatePayrollItemTypeDto
     {
         public string Name { get; set; } = null!;
         public PayrollItemKind Kind { get; set; }
@@ -15,7 +15,5 @@ namespace ERPSystem.DataAccessLayer.Modules.HR
         public decimal? Percentage { get; set; }
         public decimal? FixedAmount { get; set; }
         public bool IsTaxRelated { get; set; }
-        public HashSet<PayrollItem> PayrollItems { get; set; } = new ();
     }
 }
-
