@@ -16,9 +16,7 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.PayrollItemS
     {
         IGenericRepository<PayrollItem, int> repository = unitOfWork.CreateGenericRepository<PayrollItem, int>();
         IGenericRepository<PayrollItemType, int> repositoryPayrollItemType = unitOfWork.CreateGenericRepository<PayrollItemType, int>();
-
         IGenericRepository<Employee, int> repositoryEmployee = unitOfWork.CreateGenericRepository<Employee, int>();
-
         public async Task<int> AddPayrollItemToEmployeeAsync(CreatePayrollItemDto payrollItemDto)
         {
             var employee = await repositoryEmployee.GetByIdAsync(payrollItemDto.EmployeeId);
@@ -31,7 +29,6 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.PayrollItemS
             payrollItem.Amount = CalculateItemAmount(payrollItemType, employee.Salary);
             payrollItem.StartDate = DateTime.Now;
             payrollItem.IsActive = true;
-
             await repository.AddAsync(payrollItem);
             return await unitOfWork.SaveChangeAsync();
         }
