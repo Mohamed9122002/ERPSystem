@@ -16,6 +16,7 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.AttendanceS
     public class AttendanceService(IUnitOfWork unitOfWork, IMapper mapper) : IAttendanceService
     {
         IGenericRepository<Attendance, int> repository = unitOfWork.CreateGenericRepository<Attendance, int>();
+        IGenericRepository<Employee, int> repositoryEmployee = unitOfWork.CreateGenericRepository<Employee, int>();
 
         public async Task<int> CreateAttendanceAsync(CreateAttendanceDto attendanceDto)
         {
@@ -58,42 +59,45 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.AttendanceS
             return attendanceDto;
         }
 
-        public async Task<Attendance> CheckInAsync(int attendanceId)
+        public async Task<Attendance> CheckInAsync(int employeeId)
         {
             var today = DateTime.Today;
-            var attandance = await repository.GetByIdAsync(attendanceId);
-            if (attandance is null)
+            var employee = await repositoryEmployee.GetByIdAsync(employeeId) ?? throw new Exception("Employee not found");
+            var attendance = (await repository.GetAllAsync()).FirstOrDefault(a => a.EmployeeId == employeeId && a.Date.Date == today);
+            ;
+            if (attendance is not null)
             {
-                attandance = new Attendance
-                {
-                    EmployeeId = attendanceId,
-                    Date = today,
-                    CheckIn = DateTime.Now,
-                    Status = AttendanceStatus.Present
-                };
-                await repository.AddAsync(attandance);
+                if (attendance.CheckIn.HasValue)
+                    throw new Exception("You already checked in today.");
+
+                attendance.CheckIn = DateTime.Now;
+                attendance.Status = AttendanceStatus.Present;
+                repository.Update(attendance);
             }
             else
             {
-                if (attandance.CheckIn != null)
+
+                attendance = new Attendance
                 {
-                    throw new Exception("You already checked in today.");
-                }
-                attandance.CheckIn = DateTime.Now;
-                attandance.Status = AttendanceStatus.Present;
-                repository.Update(attandance);
+                    EmployeeId = employeeId,
+                    Date = today,
+                    CheckIn = DateTime.Now,
+                    Status = AttendanceStatus.Present,
+                    IsAbsent = false,
+                    LateHours = 0,
+                    OvertimeHours = 0,
+                    WorkingHours = 0
+                };
+                await repository.AddAsync(attendance);
             }
             await unitOfWork.SaveChangeAsync();
-            return attandance;
+            return attendance;
         }
 
         public async Task<Attendance> CheckOutAsync(int attendanceId)
         {
-            var attendance = await repository.GetByIdAsync(attendanceId);
-
-            if (attendance == null)
-                throw new Exception("Attendance record not found.");
-
+            var today = DateTime.Today;
+            var attendance = await repository.GetByIdAsync(attendanceId) ?? throw new Exception("Attendance record not found.");
             if (!attendance.CheckIn.HasValue)
                 throw new Exception("You have not checked in today.");
 
@@ -101,14 +105,25 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.AttendanceS
                 throw new Exception("You have already checked out today.");
 
             attendance.CheckOut = DateTime.Now;
+            attendance.WorkingHours = (decimal)(attendance.CheckOut.Value - attendance.CheckIn.Value).TotalHours;
+            var shiftStart = new DateTime(attendance.Date.Year, attendance.Date.Month, attendance.Date.Day, 9, 0, 0);
+            var shiftEnd = new DateTime(attendance.Date.Year, attendance.Date.Month, attendance.Date.Day, 17, 0, 0);
 
-            var totalHours = (attendance.CheckOut.Value - attendance.CheckIn.Value).TotalHours;
-            attendance.Status = totalHours >= 8 ? AttendanceStatus.Present : AttendanceStatus.Late;
-
+            // حساب Late
+            attendance.LateHours = attendance.CheckIn > shiftStart
+                ? (decimal)(attendance.CheckIn.Value - shiftStart).TotalHours
+                : 0;
+            attendance.OvertimeHours = attendance.CheckOut > shiftEnd
+                ? (decimal)(attendance.CheckOut.Value - shiftEnd).TotalHours
+                : 0;
+            attendance.Status = attendance.WorkingHours >= 8 ? AttendanceStatus.Present : AttendanceStatus.Late;
+            attendance.IsAbsent = attendance.CheckIn == null;
             repository.Update(attendance);
             await unitOfWork.SaveChangeAsync();
-
             return attendance;
+
         }
     }
 }
+
+

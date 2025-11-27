@@ -15,5 +15,8 @@ namespace ERPSystem.BusinessLogicLayer.DataTransferObject.AttendanceDtos
         public DateTime? CheckIn { get; set; }
         public DateTime? CheckOut { get; set; }
         public AttendanceStatus Status { get; set; }
+        public decimal LateHours { get; set; }
+        public decimal OvertimeHours { get; set; }
+        public decimal WorkingHours { get; set; }
     }
 }

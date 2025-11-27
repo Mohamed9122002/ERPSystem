@@ -15,7 +15,7 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.AttendanceS
         Task<bool> DeleteAttendanceAsync(int id);
         Task<AttendanceDetailsDto?> GetAttendanceByIdAsync(int id);
         Task<IEnumerable<AttendanceListDto>> GetAllAttendanceAsync();
-        Task<Attendance> CheckInAsync(int attendanceIdId);
+        Task<Attendance> CheckInAsync(int employeeId);
         Task<Attendance> CheckOutAsync(int attendanceId);
 
     }
