@@ -15,5 +15,9 @@ namespace ERPSystem.DataAccessLayer.Modules.HR
         public AttendanceStatus Status { get; set; } 
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; } = null!;
+        public bool IsAbsent { get; set; }
+        public decimal LateHours { get; set; } = 0;
+        public decimal OvertimeHours { get; set; } = 0;
+        public decimal WorkingHours { get; set; } = 0;
     }
 }

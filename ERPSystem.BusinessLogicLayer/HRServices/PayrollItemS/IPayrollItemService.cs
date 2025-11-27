@@ -16,6 +16,7 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.PayrollItemS
         Task<int> AddPayrollItemToEmployeeAsync(CreatePayrollItemDto payrollItemDto);
         Task<int> UpdatePayrollItemAsync(UpdatePayrollItemDto payrollItemDto);
         Task<bool> DeletePayrollItemAsync(int id);
-        Task<decimal> CalculateNetSalaryAsync(int employeeId);
+        Task<decimal> CalculateNetSalaryAsync(int employeeId , DateTime month);
+        Task<int> GeneratePayrollItemsFromAttendanceAsync(int employeeId, DateTime month);
     }
 }

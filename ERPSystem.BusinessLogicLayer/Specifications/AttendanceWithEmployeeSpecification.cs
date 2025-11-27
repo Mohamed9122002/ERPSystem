@@ -14,9 +14,14 @@ namespace ERPSystem.BusinessLogicLayer.Specifications
         {
             AddInclude(A => A.Employee);
         }
+        public AttendanceWithEmployeeSpecification(int employeeId , DateTime month):base(a=>a.EmployeeId == employeeId && a.Date.Month == month.Month)
+        {
+            AddInclude(A => A.Employee);
+        }
         public AttendanceWithEmployeeSpecification(int id) : base(A => A.Id == id)
         {
             AddInclude(A => A.Employee);
         }
+        
     }
 }
