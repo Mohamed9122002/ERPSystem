@@ -53,6 +53,7 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.PayrollItemS
 
         public async Task<IEnumerable<PayrollItemDto>> GetPayrollItemAllAsync()
         {
+            // DTo Do With Specification Pattern GetAllAsync 
             var payrollItems = await repository.GetAllAsync();
             var payrollItemDtos = mapper.Map<IEnumerable<PayrollItem>, IEnumerable<PayrollItemDto>>(payrollItems);
             return payrollItemDtos;
@@ -74,6 +75,7 @@ namespace ERPSystem.BusinessLogicLayer.HRServices.PayrollItemS
             var employee = await repositoryEmployee.GetByIdAsync(employeeId);
             if (employee is null)
                 throw new Exception("Employee not found");
+            // To Do With Specification Pattern 
             var payrollItems = await repository.GetAllAsync();
             foreach (var payrollItem in payrollItems.Where(P => P.IsActive))
             {
