@@ -1,0 +1,29 @@
+name: .NET CI/CD
+
+on:
+  push:
+    branches: [ "development" ]
+
+jobs:
+  ci:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        path: ERP
+
+    - name: Restore dependencies
+      working-directory: ERP
+      run: dotnet restore
+    
+    - name: Build
+      working-directory: ERP
+      run: dotnet build   
+
+
+    - name: Publish
+      working-directory: ERP
+      run: dotnet publish -c Release -o ./publish
+
