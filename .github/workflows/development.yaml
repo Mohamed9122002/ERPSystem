@@ -37,8 +37,8 @@ jobs:
     steps:
     - name: Stop app
       shell: cmd
-      run: taskkill /IM ERPSystem.PresentationLayer.exe /F 2>nul
-
+      run: |
+        taskkill /IM ERPSystem.PresentationLayer.exe /F >nul 2>&1 || exit 0
     - name: Clean deploy folder
       shell: powershell
       run: |
