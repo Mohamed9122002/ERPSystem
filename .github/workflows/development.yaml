@@ -39,15 +39,10 @@ jobs:
       shell: cmd
       run: |
         taskkill /IM ERPSystem.PresentationLayer.exe /F >nul 2>&1 || exit 0
-    - name: Clean deploy folder
-      shell: powershell
+    - name: Stop app
+      shell: cmd
       run: |
-        if (Test-Path "C:\apps\erp") {
-          Remove-Item "C:\apps\erp\*" -Recurse -Force
-        } else {
-          New-Item -ItemType Directory -Path "C:\apps\erp"
-        }
-
+        taskkill /IM ERPSystem.PresentationLayer.exe /F >nul 2>&1 || exit 0
     - name: Deploy published files
       shell: powershell
       run: |
