@@ -16,12 +16,15 @@ jobs:
 
     - name: Restore dependencies
       working-directory: ERP
-      run: dotnet restore ERPSystem.PresentationLayer/ERPSystem.PresentationLayer.csproj
-    
+      shell: cmd
+      run: dotnet restore ERPSystem.PresentationLayer\ERPSystem.PresentationLayer.csproj
+
     - name: Build
       working-directory: ERP
-      run: dotnet build ERPSystem.PresentationLayer/ERPSystem.PresentationLayer.csproj --configuration Release --no-restore
-    
+      shell: cmd
+      run: dotnet build ERPSystem.PresentationLayer\ERPSystem.PresentationLayer.csproj --configuration Release --no-restore
+
     - name: Publish
       working-directory: ERP
-      run: dotnet publish ERPSystem.PresentationLayer/ERPSystem.PresentationLayer.csproj -c Release -o publish  
+      shell: cmd
+      run: dotnet publish ERPSystem.PresentationLayer\ERPSystem.PresentationLayer.csproj -c Release -o publish
