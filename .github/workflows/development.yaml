@@ -14,7 +14,7 @@ jobs:
       with:
         path: ERP
 
-    - name: Restore dependencies
+    - name: Restore
       working-directory: ERP
       shell: cmd
       run: dotnet restore ERPSystem.PresentationLayer\ERPSystem.PresentationLayer.csproj
@@ -27,7 +27,7 @@ jobs:
     - name: Publish
       working-directory: ERP
       shell: cmd
-      run: dotnet publish ERPSystem.PresentationLayer\ERPSystem.PresentationLayer.csproj -c Release  -o C:\deploy\erp\publish
+      run: dotnet publish ERPSystem.PresentationLayer\ERPSystem.PresentationLayer.csproj -c Release -o C:\deploy\erp\publish
 
 
   cd:
@@ -37,16 +37,15 @@ jobs:
     steps:
     - name: Stop app
       shell: cmd
-      run: |
-        taskkill /IM ERPSystem.PresentationLayer.exe /F >nul 2>&1 || exit 0
-    - name: Stop app
+      run: taskkill /IM ERPSystem.PresentationLayer.exe /F >nul 2>&1 || exit 0
+
+    - name: Prepare deploy folder
       shell: cmd
-      run: |
-        taskkill /IM ERPSystem.PresentationLayer.exe /F >nul 2>&1 || exit 0
-    - name: Deploy published files
-      shell: powershell
-      run: |
-        Copy-Item -Path "C:\deploy\erp\publish\*" -Destination "C:\apps\erp" -Recurse -Force
+      run: if not exist C:\apps\erp mkdir C:\apps\erp
+
+    - name: Deploy files
+      shell: cmd
+      run: xcopy C:\deploy\erp\publish\* C:\apps\erp /E /Y /I
 
     - name: Start app
       shell: cmd
