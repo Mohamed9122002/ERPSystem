@@ -49,4 +49,4 @@ jobs:
 
     - name: Start app
       shell: cmd
-      run: C:\apps\erp\ERPSystem.PresentationLayer.exe 
+      run: start "" /B "C:\apps\erp\ERPSystem.PresentationLayer.exe"
