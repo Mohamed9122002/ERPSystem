@@ -27,4 +27,32 @@ jobs:
     - name: Publish
       working-directory: ERP
       shell: cmd
-      run: dotnet publish ERPSystem.PresentationLayer\ERPSystem.PresentationLayer.csproj -c Release -o publish
+      run: dotnet publish ERPSystem.PresentationLayer\ERPSystem.PresentationLayer.csproj -c Release  -o C:\deploy\erp\publish
+
+
+  cd:
+    needs: ci
+    runs-on: self-hosted
+
+    steps:
+    - name: Stop app
+      shell: cmd
+      run: taskkill /IM ERPSystem.PresentationLayer.exe /F 2>nul
+
+    - name: Clean deploy folder
+      shell: powershell
+      run: |
+        if (Test-Path "C:\apps\erp") {
+          Remove-Item "C:\apps\erp\*" -Recurse -Force
+        } else {
+          New-Item -ItemType Directory -Path "C:\apps\erp"
+        }
+
+    - name: Deploy published files
+      shell: powershell
+      run: |
+        Copy-Item -Path "C:\deploy\erp\publish\*" -Destination "C:\apps\erp" -Recurse -Force
+
+    - name: Start app
+      shell: cmd
+      run: start "" "C:\apps\erp\ERPSystem.PresentationLayer.exe"
