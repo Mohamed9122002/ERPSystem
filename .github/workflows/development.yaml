@@ -48,5 +48,6 @@ jobs:
       run: xcopy C:\deploy\erp\publish\* C:\apps\erp /E /Y /I
 
     - name: Start app
-      shell: cmd
-      run: start "" "C:\apps\erp\ERPSystem.PresentationLayer.exe"
+      shell: powershell
+      run: |
+        Start-Process "C:\apps\erp\ERPSystem.PresentationLayer.exe"
